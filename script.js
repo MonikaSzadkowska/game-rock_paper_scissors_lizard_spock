@@ -5,10 +5,14 @@ newGameBtn.addEventListener('click', newGame);
 var pickRock = document.getElementById('js-playerPick_rock'),
 	pickPaper = document.getElementById('js-playerPick_paper'),
 	pickScissors = document.getElementById('js-playerPick_scissors');
+	pickLizard = document.getElementById('js-playerPick_lizard');
+	pickSpock = document.getElementById('js-playerPick_spock');
 
 pickRock.addEventListener('click', function() { playerPick('rock') });
 pickPaper.addEventListener('click', function() { playerPick('paper') });
 pickScissors.addEventListener('click', function() { playerPick('scissors') });
+pickLizard.addEventListener('click', function() { playerPick('lizard') });
+pickSpock.addEventListener('click', function() { playerPick('spock') });
 
 var gameState = ['notStarted', 'started' , 'ended'];
 	player = {
@@ -63,8 +67,8 @@ function playerPick(playerPick) {
 var x = Math.random();
 
 function getComputerPick() {
-	var possiblePicks = ['rock', 'paper', 'scissors'];
-	return possiblePicks[Math.floor(Math.random()*3)];
+	var possiblePicks = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
+	return possiblePicks[Math.floor(Math.random()*5)];
 };
 
 var playerPickElem = document.getElementById('js-playerPick'),
@@ -75,7 +79,7 @@ var playerPickElem = document.getElementById('js-playerPick'),
 function playerPick(playerPick) {
 	var computerPick = getComputerPick();
     
-	playerPickElem.innerHTML = playerPick;
+    playerPickElem.innerHTML = playerPick;
 	computerPickElem.innerHTML = computerPick;
 };
 
@@ -89,7 +93,14 @@ function checkRoundWinner(playerPick, computerPick) {
 	} else if (
 		(computerPick == 'rock' &&  playerPick == 'scissors') ||
 		(computerPick == 'scissors' &&  playerPick == 'paper') ||
-		(computerPick == 'paper' &&  playerPick == 'rock')) {
+		(computerPick == 'paper' &&  playerPick == 'rock') ||
+		(computerPick == 'rock' &&  playerPick == 'lizard') ||
+		(computerPick == 'lizard' &&  playerPick == 'spock') ||
+		(computerPick == 'spock' &&  playerPick == 'scissors') ||
+		(computerPick == 'scissors' &&  playerPick == 'lizard') ||
+		(computerPick == 'lizard' &&  playerPick == 'paper') ||
+		(computerPick == 'paper' &&  playerPick == 'spock') ||
+		(computerPick == 'spock' &&  playerPick == 'rock')) {
 
 		winnerIs = 'computer';
 		}
@@ -101,6 +112,7 @@ function checkRoundWinner(playerPick, computerPick) {
 		computerResultElem.innerHTML = "Win!";
 		computer.score++;
 	}
+	
 	setGamePoints();
 	setEndGame();
 };
@@ -112,6 +124,7 @@ function playerPick(playerPick) {
 	computerPickElem.innerHTML = computerPick;
 
 	checkRoundWinner(playerPick, computerPick);
+
 };
 
 function setGamePoints() {
@@ -126,4 +139,3 @@ function setEndGame () {
 		return alert('Computer wins!') + location.reload();
 	}
 };
-
